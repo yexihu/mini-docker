@@ -22,6 +22,7 @@ Linux 提供了 3 个系统 API 方便我们使用 Namespace：
 ### Docker 分层结构：Union File System
 
 ##A mini container
+
 一个模拟Docker的container系统
 
 ![截图](./screenshot/v01.gif)
