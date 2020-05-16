@@ -21,6 +21,16 @@ Linux 提供了 3 个系统 API 方便我们使用 Namespace：
 - setns () 将进程加入到已存在的 Namespace 中。
 - unshare () 将进程移出某个 Namespace。
 
+
+分离文件系统
+
+Docker提供的有Ubuntu、Centos的镜像，其实这些并不是严格意义上的镜像，它们准确的叫法应该是——根文件系统（root filesystem）。
+
+容器是共享内核的，所以无论是Ubuntu、Centos它们里面都使用Host的内核，如果你在Docker中通过uname查看会发现无论什么镜像它们的内核版本都和Host一摸一样。所以，不同“操作系统”Docker镜像其实就是不同的根文件系统。
+
+分离文件系统分为三个步骤，首先我们建立容器里面的/proc文件系统，很多Linux命令都是读取这个文件系统下的内容（比如top中显示的进程列表）；其次我们要把现在的用户和容器里面的用户做映射，否则会提示权限不足；最后我们要通过pivot_root 函数把“切换”根文件系统。
+
+
 ### Docker 资源限制：Linux Cgroups
 
 ### Docker 分层结构：Union File System
