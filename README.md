@@ -8,6 +8,10 @@
 
 ## Docker 原理知识
 
+![图](https://mmbiz.qpic.cn/mmbiz_png/nfxUjuI2HXj75nLVG358NN7GLic11vXvBVgBlSmXUDdnHYicBAjpeebSZxlqic8j9APIjNzSXJdLtTicic4GpzJF15g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+这张图中蕴含了一个经常被忽视的细节——容器是共享内核的，它们属于多个进程同时运行在一个内核上，只不过是利用namespace把它们隔离开，用cgroup限制可用资源。而虚拟机是共享“硬件”的，每个虚拟机都有自己独立的操作系统。所以，虚拟机是可引导的、绝对安全的隔离技术；而容器是非常脆弱的，不安全的隔离技术。
+
 ### Docker 资源隔离：Linux Namespace
 
 Linux Namespace（Linux 命名空间）是 Linux 内核（Kernel）提供的功能，它可以隔离一系列的系统资源，如 PID（进程 ID，Process ID）、User ID、Network、文件系统等。
@@ -21,12 +25,9 @@ Linux 提供了 3 个系统 API 方便我们使用 Namespace：
 
 ### Docker 分层结构：Union File System
 
-##A mini container
-
-一个模拟Docker的container系统
+## A mini container 一个模拟Docker的container系统
 
 ![截图](./screenshot/v01.gif)
-
 
 ```mkdir /tmp/rootfs && tar -Jxf centos-7-docker.tar.xz -C /tmp/rootfs && git clone https://github.com/fireflyc/mini-docker.git
 cd mini-docker/ && pipenv shell && python setup.py develop
